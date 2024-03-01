@@ -1,0 +1,25 @@
+server: &server
+  env: development # development / production
+  name: 'API Pondok Pesantren'
+  url:
+  host: localhost
+  port: 3001
+  public_path: web/public
+  upload_path: web/uploads
+  log_path: tmp/logs
+  upload_limit: 12 # MiB
+  debug: true # HTTP request/response
+
+database:
+  driver: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+  name: pondok_pesantren
+  debug: info # info -> all, error -> only errors, silent -> no info
+
+jwt:
+  issuer: API Pondok Pesantren
+  secret: thisisasecret
+  expire: 3600

@@ -1,0 +1,3998 @@
+basePath: /
+definitions:
+  abude-backend_internal_pkg_accounts_category.Category:
+    properties:
+      code:
+        type: string
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      normal:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  abude-backend_internal_pkg_accounts_category.CategoryDTO:
+    properties:
+      category:
+        type: integer
+      code:
+        type: string
+      company:
+        type: integer
+      description:
+        type: string
+      name:
+        type: string
+      normal:
+        enum:
+        - 1
+        - -1
+        type: integer
+    required:
+    - category
+    - code
+    - company
+    - name
+    - normal
+    type: object
+  abude-backend_internal_pkg_inventories_category.Category:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      parent:
+        $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+      updatedAt:
+        type: string
+    type: object
+  abude-backend_internal_pkg_inventories_category.CategoryDTO:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      parent:
+        type: integer
+    required:
+    - name
+    type: object
+  account.Account:
+    properties:
+      category:
+        $ref: '#/definitions/abude-backend_internal_pkg_accounts_category.Category'
+      code:
+        type: string
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      normal:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  account.AccountDTO:
+    properties:
+      category:
+        type: integer
+      code:
+        type: string
+      company:
+        type: integer
+      description:
+        type: string
+      name:
+        type: string
+      normal:
+        enum:
+        - 1
+        - -1
+        type: integer
+    required:
+    - category
+    - code
+    - company
+    - name
+    - normal
+    type: object
+  auth.Authenticated:
+    properties:
+      creds:
+        $ref: '#/definitions/common.Creds'
+      token:
+        type: string
+    type: object
+  auth.LoginDTO:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  common.BasicResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  common.Creds:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        enum:
+        - superadmin
+        - owner
+        - employee
+        type: string
+      status:
+        type: boolean
+      username:
+        type: string
+    type: object
+  common.GeneralResponse:
+    properties:
+      message:
+        type: string
+      result: {}
+    type: object
+  common.PaginatedResponse:
+    properties:
+      metadata:
+        $ref: '#/definitions/pagination.Metadata'
+      result:
+        items: {}
+        type: array
+    type: object
+  company.Company:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      region:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  company.CompanyDTO:
+    properties:
+      name:
+        type: string
+      region:
+        type: string
+    required:
+    - name
+    - region
+    type: object
+  employee.Employee:
+    properties:
+      address:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phonenumber:
+        type: string
+      status:
+        type: boolean
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/user.User'
+    type: object
+  employee.EmployeeCreateDTO:
+    properties:
+      address:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phonenumber:
+        type: string
+      status:
+        type: boolean
+      username:
+        type: string
+    required:
+    - name
+    - password
+    - status
+    - username
+    type: object
+  employee.EmployeeUpdateDTO:
+    properties:
+      address:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phonenumber:
+        type: string
+      status:
+        type: boolean
+      username:
+        type: string
+    required:
+    - name
+    - status
+    - username
+    type: object
+  expense.Expense:
+    properties:
+      account:
+        $ref: '#/definitions/account.Account'
+      amount:
+        type: integer
+      code:
+        type: string
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      date:
+        type: string
+      id:
+        type: integer
+      notes:
+        type: string
+      outlet:
+        $ref: '#/definitions/outlet.Outlet'
+      status:
+        enum:
+        - approved
+        - accepted
+        - canceled
+        type: string
+      type:
+        enum:
+        - debit
+        - credit
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  expense.ExpenseDTO:
+    properties:
+      account:
+        type: integer
+      amount:
+        minimum: 0
+        type: integer
+      company:
+        type: integer
+      date:
+        type: string
+      notes:
+        type: string
+      outlet:
+        type: integer
+      type:
+        enum:
+        - debit
+        - credit
+        type: string
+    required:
+    - account
+    - amount
+    - company
+    - outlet
+    - type
+    type: object
+  expense.ExpenseSummary:
+    properties:
+      date:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      quantity:
+        type: integer
+      total:
+        type: number
+    type: object
+  handover.Handover:
+    properties:
+      cashReceived:
+        type: integer
+      cashReturned:
+        type: integer
+      createdAt:
+        type: string
+      date:
+        type: string
+      expensesTotal:
+        type: integer
+      id:
+        type: integer
+      note:
+        type: string
+      outlet:
+        $ref: '#/definitions/outlet.Outlet'
+      purchasesTotal:
+        type: integer
+      salesTotal:
+        type: integer
+      shift:
+        $ref: '#/definitions/shift.Shift'
+      updatedAt:
+        type: string
+    type: object
+  handover.HandoverDTO:
+    properties:
+      cashReceived:
+        type: integer
+      cashReturned:
+        type: integer
+      date:
+        format: date-time
+        type: string
+      note:
+        type: string
+      outlet:
+        type: integer
+      shift:
+        type: integer
+    required:
+    - cashReceived
+    - date
+    - note
+    - outlet
+    - shift
+    type: object
+  inventory.Inventory:
+    properties:
+      createdAt:
+        type: string
+      date:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      product:
+        $ref: '#/definitions/product.Product'
+      stockIn:
+        type: number
+      stockOut:
+        type: number
+      updatedAt:
+        type: string
+    type: object
+  inventory.InventoryDTO:
+    properties:
+      date:
+        type: string
+      price:
+        minimum: 0
+        type: number
+      product:
+        type: integer
+      quantity:
+        type: number
+      source:
+        enum:
+        - outlet
+        - warehouse
+        type: string
+      sourceId:
+        type: integer
+    required:
+    - date
+    - price
+    - product
+    - quantity
+    - source
+    - sourceId
+    type: object
+  inventory.Recapitulation:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      date:
+        type: string
+      employee:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/inventory.RecapitulationItem'
+        type: array
+      notes:
+        type: string
+      outlet:
+        $ref: '#/definitions/outlet.Outlet'
+      updatedAt:
+        type: string
+    type: object
+  inventory.RecapitulationDTO:
+    properties:
+      date:
+        type: string
+      employee:
+        type: string
+      notes:
+        type: string
+      outlet:
+        type: integer
+    required:
+    - date
+    - employee
+    - outlet
+    type: object
+  inventory.RecapitulationItem:
+    properties:
+      available:
+        type: integer
+      createdAt:
+        type: string
+      id:
+        type: integer
+      product:
+        $ref: '#/definitions/product.Product'
+      recapitulation:
+        $ref: '#/definitions/inventory.Recapitulation'
+      stockIn:
+        type: number
+      stockOut:
+        type: number
+      totalValue:
+        type: number
+      updatedAt:
+        type: string
+      valueIn:
+        type: number
+      valueOut:
+        type: number
+    type: object
+  inventory.Stock:
+    properties:
+      amount:
+        type: number
+      averagePrice:
+        type: number
+      category:
+        $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+      product:
+        $ref: '#/definitions/product.Product'
+      totalValue:
+        type: number
+    type: object
+  inventory.StockSummary:
+    properties:
+      available:
+        type: integer
+      product:
+        $ref: '#/definitions/product.Product'
+      stockIn:
+        type: number
+      stockOut:
+        type: number
+      totalValue:
+        type: number
+      valueIn:
+        type: number
+      valueOut:
+        type: number
+    type: object
+  outlet.Outlet:
+    properties:
+      address:
+        type: string
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      id:
+        type: integer
+      latitude:
+        type: number
+      longitude:
+        type: number
+      name:
+        type: string
+      status:
+        type: boolean
+      updatedAt:
+        type: string
+    type: object
+  outlet.OutletCount:
+    properties:
+      activeCount:
+        type: integer
+      inactiveCount:
+        type: integer
+      totalCount:
+        type: integer
+    type: object
+  outlet.OutletDTO:
+    properties:
+      address:
+        type: string
+      company:
+        type: integer
+      latitude:
+        type: number
+      longitude:
+        type: number
+      name:
+        type: string
+      status:
+        type: boolean
+    required:
+    - company
+    - name
+    - status
+    type: object
+  outlet.OutletEmployee:
+    properties:
+      createdAt:
+        type: string
+      employee:
+        $ref: '#/definitions/employee.Employee'
+      id:
+        type: integer
+      outlet:
+        $ref: '#/definitions/outlet.Outlet'
+      type:
+        enum:
+        - admin
+        - employee
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  outlet.OutletEmployeeDTO:
+    properties:
+      type:
+        enum:
+        - admin
+        - employee
+        type: string
+    required:
+    - type
+    type: object
+  pagination.Metadata:
+    properties:
+      count:
+        type: integer
+      hasNext:
+        type: boolean
+      hasPrev:
+        type: boolean
+      limit:
+        type: integer
+      page:
+        type: integer
+      total:
+        type: integer
+    type: object
+  product.Ingredient:
+    properties:
+      base:
+        $ref: '#/definitions/product.Product'
+      createdAt:
+        type: string
+      id:
+        type: integer
+      ingredient:
+        $ref: '#/definitions/product.Product'
+      quantity:
+        type: number
+      updatedAt:
+        type: string
+    type: object
+  product.IngredientDTO:
+    properties:
+      product:
+        type: integer
+      quantity:
+        minimum: 0
+        type: number
+    required:
+    - product
+    - quantity
+    type: object
+  product.Product:
+    properties:
+      category:
+        $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      ingredients:
+        items:
+          $ref: '#/definitions/product.Ingredient'
+        type: array
+      isDefault:
+        type: boolean
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: boolean
+      type:
+        enum:
+        - purchase
+        - sale
+        type: string
+      unit:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  product.ProductDTO:
+    properties:
+      category:
+        type: integer
+      company:
+        type: integer
+      description:
+        type: string
+      ingredients:
+        items:
+          $ref: '#/definitions/product.IngredientDTO'
+        type: array
+      isDefault:
+        type: boolean
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: boolean
+      type:
+        enum:
+        - purchase
+        - sale
+        type: string
+      unit:
+        type: string
+    required:
+    - company
+    - ingredients
+    - name
+    - price
+    - stock
+    - type
+    - unit
+    type: object
+  purchase.Purchase:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      date:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/purchase.PurchaseItem'
+        type: array
+      note:
+        type: string
+      status:
+        enum:
+        - approved
+        - accepted
+        - canceled
+        type: string
+      supplier:
+        $ref: '#/definitions/supplier.Supplier'
+      total:
+        type: integer
+      type:
+        enum:
+        - debit
+        - credit
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/user.User'
+    type: object
+  purchase.PurchaseDTO:
+    properties:
+      date:
+        format: date-time
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/purchase.PurchaseItemDTO'
+        type: array
+      note:
+        type: string
+      source:
+        enum:
+        - outlet
+        - warehouse
+        type: string
+      sourceId:
+        type: integer
+      supplier:
+        type: integer
+      type:
+        enum:
+        - debit
+        - credit
+        type: string
+    required:
+    - items
+    - source
+    - sourceId
+    - type
+    type: object
+  purchase.PurchaseItem:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      product:
+        $ref: '#/definitions/product.Product'
+      quantity:
+        type: integer
+      status:
+        type: boolean
+      total:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  purchase.PurchaseItemDTO:
+    properties:
+      price:
+        type: integer
+      product:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - product
+    - quantity
+    type: object
+  purchase.PurchaseSummary:
+    properties:
+      date:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      quantity:
+        type: integer
+      total:
+        type: number
+    type: object
+  sale.Sale:
+    properties:
+      code:
+        type: string
+      createdAt:
+        type: string
+      customer:
+        type: string
+      date:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/sale.SaleItem'
+        type: array
+      note:
+        type: string
+      status:
+        enum:
+        - approved
+        - accepted
+        - canceled
+        type: string
+      total:
+        type: integer
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/user.User'
+    type: object
+  sale.SaleDTO:
+    properties:
+      customer:
+        type: string
+      date:
+        format: date-time
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/sale.SaleItemDTO'
+        type: array
+      note:
+        type: string
+      source:
+        enum:
+        - outlet
+        - warehouse
+        type: string
+      sourceId:
+        type: integer
+      status:
+        enum:
+        - accepted
+        - canceled
+        - approved
+        type: string
+    required:
+    - customer
+    - items
+    - source
+    - sourceId
+    type: object
+  sale.SaleItem:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      price:
+        type: integer
+      product:
+        $ref: '#/definitions/product.Product'
+      quantity:
+        type: integer
+      status:
+        type: boolean
+      total:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  sale.SaleItemDTO:
+    properties:
+      price:
+        type: integer
+      product:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - product
+    - quantity
+    type: object
+  sale.SaleSummary:
+    properties:
+      date:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      quantity:
+        type: integer
+      total:
+        type: number
+    type: object
+  shift.Shift:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      endTime:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      startTime:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  shift.ShiftDTO:
+    properties:
+      company:
+        type: integer
+      description:
+        type: string
+      endTime:
+        type: string
+      name:
+        type: string
+      startTime:
+        type: string
+    required:
+    - company
+    - endTime
+    - name
+    - startTime
+    type: object
+  supplier.Supplier:
+    properties:
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  supplier.SupplierDTO:
+    properties:
+      company:
+        type: integer
+      description:
+        type: string
+      name:
+        type: string
+    required:
+    - company
+    - name
+    type: object
+  user.User:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        enum:
+        - superadmin
+        - owner
+        - employee
+        type: string
+      status:
+        type: boolean
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+  user.UserCreateDTO:
+    properties:
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      role:
+        enum:
+        - superadmin
+        - owner
+        - employee
+        type: string
+      status:
+        type: boolean
+      username:
+        type: string
+    required:
+    - name
+    - password
+    - role
+    - status
+    - username
+    type: object
+  user.UserUpdateDTO:
+    properties:
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      role:
+        enum:
+        - superadmin
+        - owner
+        - employee
+        type: string
+      status:
+        type: boolean
+      username:
+        type: string
+    required:
+    - name
+    - role
+    - status
+    - username
+    type: object
+  wage.Wage:
+    properties:
+      amount:
+        type: integer
+      code:
+        type: string
+      company:
+        $ref: '#/definitions/company.Company'
+      createdAt:
+        type: string
+      date:
+        type: string
+      employee:
+        $ref: '#/definitions/employee.Employee'
+      id:
+        type: integer
+      notes:
+        type: string
+      outlet:
+        $ref: '#/definitions/outlet.Outlet'
+      status:
+        enum:
+        - approved
+        - accepted
+        - canceled
+        type: string
+      type:
+        enum:
+        - debit
+        - credit
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  wage.WageDTO:
+    properties:
+      amount:
+        minimum: 0
+        type: integer
+      company:
+        type: integer
+      date:
+        type: string
+      employee:
+        type: integer
+      notes:
+        type: string
+      outlet:
+        type: integer
+      type:
+        enum:
+        - debit
+        - credit
+        type: string
+    required:
+    - amount
+    - company
+    - employee
+    - outlet
+    - type
+    type: object
+  wage.WageSummary:
+    properties:
+      date:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      quantity:
+        type: integer
+      total:
+        type: number
+    type: object
+info:
+  contact:
+    email: infamous0192@gmail.com
+    name: Dwa Meizadewa
+  description: Aplikasi Backend (API) untuk project Abude
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Abude Backend
+  version: 2.0.0
+paths:
+  /api/account:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: category
+        type: integer
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/account.Account'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Account
+      tags:
+      - Accounts
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/account.AccountDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/account.Account'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Account
+      tags:
+      - Accounts
+  /api/account/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/account.Account'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Account
+      tags:
+      - Accounts
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/account.Account'
+      security:
+      - JWT: []
+      summary: Get One Account
+      tags:
+      - Accounts
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/account.AccountDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/account.Account'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Account
+      tags:
+      - Accounts
+  /api/auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.LoginDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Authenticated'
+      security:
+      - Tenant: []
+      - JWT: []
+      summary: Login
+      tags:
+      - Auth
+  /api/auth/me:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.Authenticated'
+      security:
+      - Tenant: []
+      - JWT: []
+      summary: Verify Token
+      tags:
+      - Auth
+  /api/category:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: parent
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Category
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.CategoryDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Category
+      tags:
+      - Products
+  /api/category/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Category
+      tags:
+      - Products
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+      security:
+      - JWT: []
+      summary: Get One Category
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.CategoryDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/abude-backend_internal_pkg_inventories_category.Category'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Category
+      tags:
+      - Products
+  /api/company:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - collectionFormat: csv
+        in: query
+        items:
+          type: integer
+        name: owner
+        type: array
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/company.Company'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Company
+      tags:
+      - Companies
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/company.CompanyDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/company.Company'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Company
+      tags:
+      - Companies
+  /api/company/:id/owner:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/user.User'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get Company Owners
+      tags:
+      - Companies
+  /api/company/{companyId}/owner/{userId}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Company ID
+        in: path
+        name: companyId
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Remove Company Owner
+      tags:
+      - Companies
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Company ID
+        in: path
+        name: companyId
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Add Company Owner
+      tags:
+      - Companies
+  /api/company/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Company ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/company.Company'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Company
+      tags:
+      - Companies
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Company ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/company.Company'
+      security:
+      - JWT: []
+      summary: Get One Company
+      tags:
+      - Companies
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Company ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/company.CompanyDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/company.Company'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Company
+      tags:
+      - Companies
+  /api/employee:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - collectionFormat: csv
+        in: query
+        items:
+          type: integer
+        name: outlet
+        type: array
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/employee.Employee'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Employee
+      tags:
+      - Employees
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.EmployeeCreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/employee.Employee'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Employee
+      tags:
+      - Employees
+  /api/employee/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/employee.Employee'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Employee
+      tags:
+      - Employees
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/employee.Employee'
+      security:
+      - JWT: []
+      summary: Get One Employee
+      tags:
+      - Employees
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/employee.EmployeeUpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/employee.Employee'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Employee
+      tags:
+      - Employees
+  /api/expense:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: account
+        type: integer
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - collectionFormat: csv
+        in: query
+        items:
+          type: string
+        name: status
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/expense.Expense'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Expense
+      tags:
+      - Expenses
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/expense.ExpenseDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/expense.Expense'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Expense
+      tags:
+      - Expenses
+  /api/expense/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Expense ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/expense.Expense'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Expense
+      tags:
+      - Expenses
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Expense ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/expense.Expense'
+      security:
+      - JWT: []
+      summary: Get One Expense
+      tags:
+      - Expenses
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Expense ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/expense.ExpenseDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/expense.Expense'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Expense
+      tags:
+      - Expenses
+  /api/expense/{id}/cancel:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Expense ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Cancel Expense
+      tags:
+      - Expenses
+  /api/expense/summary:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: account
+        type: integer
+      - description: Company ID
+        in: query
+        name: company
+        type: integer
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - description: Outlet ID
+        in: query
+        name: outlet
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - accepted
+          - approved
+          - canceled
+          type: string
+        name: status
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/expense.ExpenseSummary'
+            type: array
+      security:
+      - JWT: []
+      summary: Get Expenses Summary
+      tags:
+      - Expenses
+  /api/handover:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: shift
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/handover.Handover'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Handover
+      tags:
+      - Handovers
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handover.HandoverDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/handover.Handover'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Handover
+      tags:
+      - Handovers
+  /api/handover/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Handover ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/handover.Handover'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Handover
+      tags:
+      - Handovers
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Handover ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handover.Handover'
+      security:
+      - JWT: []
+      summary: Get One Handover
+      tags:
+      - Handovers
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Handover ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handover.HandoverDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/handover.Handover'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Handover
+      tags:
+      - Handovers
+  /api/inventory:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/inventory.Recapitulation'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get Recapitulations
+      tags:
+      - Inventories
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/inventory.RecapitulationDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/inventory.Inventory'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Recapitulation
+      tags:
+      - Inventories
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/inventory.InventoryDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Add Inventory
+      tags:
+      - Inventories
+  /api/inventory/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Inventory ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/inventory.Inventory'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Inventory
+      tags:
+      - Inventories
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Inventory ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inventory.Inventory'
+      security:
+      - JWT: []
+      summary: Get One Inventory
+      tags:
+      - Inventories
+  /api/inventory/recapitulation/:id:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Recap ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/inventory.Recapitulation'
+      security:
+      - JWT: []
+      summary: Get Recapitulation
+      tags:
+      - Inventories
+  /api/inventory/stock:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: product
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/inventory.Stock'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get Stocks
+      tags:
+      - Inventories
+  /api/inventory/summary:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: outlet
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/inventory.StockSummary'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get Stocks
+      tags:
+      - Inventories
+  /api/outlet:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: employee
+        type: integer
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: owner
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: status
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/outlet.Outlet'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Outlet
+      tags:
+      - Outlets
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/outlet.OutletDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/outlet.Outlet'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Outlet
+      tags:
+      - Outlets
+  /api/outlet/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/outlet.Outlet'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Outlet
+      tags:
+      - Outlets
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outlet.Outlet'
+      security:
+      - JWT: []
+      summary: Get One Outlet
+      tags:
+      - Outlets
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/outlet.OutletDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/outlet.Outlet'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Outlet
+      tags:
+      - Outlets
+  /api/outlet/{outletId}/employee:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: outletId
+        required: true
+        type: string
+      - in: query
+        name: employee
+        type: integer
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - enum:
+        - admin
+        - employee
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/outlet.OutletEmployee'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get Outlet Employees
+      tags:
+      - Outlets
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: outletId
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/outlet.OutletEmployeeDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/outlet.OutletEmployee'
+              type: object
+      security:
+      - JWT: []
+      summary: Add Outlet Employee
+      tags:
+      - Outlets
+  /api/outlet/{outletId}/employee/{employeeId}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/outlet.Outlet'
+              type: object
+      security:
+      - JWT: []
+      summary: Remove Outlet Employee
+      tags:
+      - Outlets
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Outlet ID
+        in: path
+        name: outletId
+        required: true
+        type: string
+      - description: Employee ID
+        in: path
+        name: employeeId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outlet.OutletEmployee'
+      security:
+      - JWT: []
+      summary: Get Outlet Employee
+      tags:
+      - Outlets
+  /api/outlet/count:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: company
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/outlet.OutletCount'
+      security:
+      - JWT: []
+      summary: Get Outlet Count
+      tags:
+      - Outlets
+  /api/product:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: category
+        type: integer
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: default
+        type: boolean
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - enum:
+        - purchase
+        - sale
+        in: query
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/product.Product'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Product
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.ProductDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/product.Product'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Product
+      tags:
+      - Products
+  /api/product/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/product.Product'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Product
+      tags:
+      - Products
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/product.Product'
+      security:
+      - JWT: []
+      summary: Get One Product
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product.ProductDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/product.Product'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Product
+      tags:
+      - Products
+  /api/purchase:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - description: Outlet ID
+        in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - accepted
+          - approved
+          - canceled
+          type: string
+        name: status
+        type: array
+      - description: User ID
+        in: query
+        name: user
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/purchase.Purchase'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Purchase
+      tags:
+      - Purchases
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/purchase.PurchaseDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/purchase.Purchase'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Purchase
+      tags:
+      - Purchases
+  /api/purchase/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Purchase ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/purchase.Purchase'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Purchase
+      tags:
+      - Purchases
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Purchase ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/purchase.Purchase'
+      security:
+      - JWT: []
+      summary: Get One Purchase
+      tags:
+      - Purchases
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Purchase ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/purchase.PurchaseDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/purchase.Purchase'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Purchase
+      tags:
+      - Purchases
+  /api/purchase/{id}/cancel:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Purchase ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Cancel Purchase
+      tags:
+      - Purchases
+  /api/purchase/summary:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - description: Outlet ID
+        in: query
+        name: outlet
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - accepted
+          - approved
+          - canceled
+          type: string
+        name: status
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/purchase.PurchaseSummary'
+            type: array
+      security:
+      - JWT: []
+      summary: Get Purchases Summary
+      tags:
+      - Purchases
+  /api/sale:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - description: Outlet ID
+        in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - accepted
+          - approved
+          - canceled
+          type: string
+        name: status
+        type: array
+      - description: User ID
+        in: query
+        name: user
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/sale.Sale'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Sale
+      tags:
+      - Sales
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/sale.SaleDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/sale.Sale'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Sale
+      tags:
+      - Sales
+  /api/sale/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/sale.Sale'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Sale
+      tags:
+      - Sales
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/sale.Sale'
+      security:
+      - JWT: []
+      summary: Get One Sale
+      tags:
+      - Sales
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/sale.SaleDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/sale.Sale'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Sale
+      tags:
+      - Sales
+  /api/sale/{id}/cancel:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sale ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Cancel Sale
+      tags:
+      - Sales
+  /api/sale/summary:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - description: Outlet ID
+        in: query
+        name: outlet
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - accepted
+          - approved
+          - canceled
+          type: string
+        name: status
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/sale.SaleSummary'
+            type: array
+      security:
+      - JWT: []
+      summary: Get Sales Summary
+      tags:
+      - Sales
+  /api/shift:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/shift.Shift'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Shift
+      tags:
+      - Shifts
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/shift.ShiftDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/shift.Shift'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Shift
+      tags:
+      - Shifts
+  /api/shift/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Shift ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/shift.Shift'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Shift
+      tags:
+      - Shifts
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Shift ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/shift.Shift'
+      security:
+      - JWT: []
+      summary: Get One Shift
+      tags:
+      - Shifts
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Shift ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/shift.ShiftDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/shift.Shift'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Shift
+      tags:
+      - Shifts
+  /api/supplier:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: keyword
+        type: string
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/supplier.Supplier'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Supplier
+      tags:
+      - Suppliers
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/supplier.SupplierDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Supplier
+      tags:
+      - Suppliers
+  /api/supplier/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Supplier ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Supplier
+      tags:
+      - Suppliers
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Supplier ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/supplier.Supplier'
+      security:
+      - JWT: []
+      summary: Get One Supplier
+      tags:
+      - Suppliers
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Supplier ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/supplier.SupplierDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/supplier.Supplier'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Supplier
+      tags:
+      - Suppliers
+  /api/user:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - superadmin
+          - owner
+          - employee
+          type: string
+        name: role
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/user.User'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All User
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.UserCreateDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/user.User'
+              type: object
+      security:
+      - JWT: []
+      summary: Create User
+      tags:
+      - Users
+  /api/user/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/user.User'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete User
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      security:
+      - JWT: []
+      summary: Get One User
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.UserUpdateDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/user.User'
+              type: object
+      security:
+      - JWT: []
+      summary: Update User
+      tags:
+      - Users
+  /api/wage:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: company
+        type: integer
+      - in: query
+        name: employee
+        type: integer
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: outlet
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.PaginatedResponse'
+            - properties:
+                result:
+                  items:
+                    $ref: '#/definitions/wage.Wage'
+                  type: array
+              type: object
+      security:
+      - JWT: []
+      summary: Get All Wage
+      tags:
+      - Wages
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/wage.WageDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/wage.Wage'
+              type: object
+      security:
+      - JWT: []
+      summary: Create Wage
+      tags:
+      - Wages
+  /api/wage/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Wage ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/wage.Wage'
+              type: object
+      security:
+      - JWT: []
+      summary: Delete Wage
+      tags:
+      - Wages
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Wage ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wage.Wage'
+      security:
+      - JWT: []
+      summary: Get One Wage
+      tags:
+      - Wages
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Wage ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/wage.WageDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/common.GeneralResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/wage.Wage'
+              type: object
+      security:
+      - JWT: []
+      summary: Update Wage
+      tags:
+      - Wages
+  /api/wage/{id}/cancel:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Wage ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/common.BasicResponse'
+      security:
+      - JWT: []
+      summary: Cancel Wage
+      tags:
+      - Wages
+  /api/wage/summary:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Company ID
+        in: query
+        name: company
+        type: integer
+      - in: query
+        name: employee
+        type: integer
+      - format: date-time
+        in: query
+        name: endDate
+        type: string
+      - description: Outlet ID
+        in: query
+        name: outlet
+        type: integer
+      - format: date-time
+        in: query
+        name: startDate
+        type: string
+      - collectionFormat: csv
+        in: query
+        items:
+          enum:
+          - accepted
+          - approved
+          - canceled
+          type: string
+        name: status
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/wage.WageSummary'
+            type: array
+      security:
+      - JWT: []
+      summary: Get Wages Summary
+      tags:
+      - Wages
+schemes:
+- https
+- http
+securityDefinitions:
+  JWT:
+    description: Authorization for JWT
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

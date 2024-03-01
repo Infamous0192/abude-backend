@@ -1,0 +1,5 @@
+bin
+tmp
+config.yml
+web/uploads
+.gitlab-ci.yml
